@@ -34,9 +34,11 @@ public class MainPanel extends JFrame{
 		urlJTextField = new JTextField("http://localhost/struts/login.action");
 		urlJTextField.setColumns(10);
 		
-		String []versions=new String[]{Version.S2009.toString(),Version.S2016.toString(),Version.S2019.toString()};
+		versionJcomboBox = new JComboBox<String>();
 		
-		versionJcomboBox = new JComboBox<String>(versions);
+		for (Version version : Version.values()) {
+			versionJcomboBox.addItem(version.name());
+		}
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		

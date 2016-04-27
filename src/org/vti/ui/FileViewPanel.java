@@ -29,6 +29,7 @@ import org.vti.enumeration.Version;
 import org.vti.service.ExploitService;
 import org.vti.service.impl.Struts2_S016_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S019_ExploitServiceImpl;
+import org.vti.service.impl.Struts2_S032_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S09_ExploitServiceImpl;
 
 public class FileViewPanel extends JPanel{
@@ -50,6 +51,8 @@ public class FileViewPanel extends JPanel{
 	private String host;
 	
 	private Version version;
+	
+	private ExploitService service;
 	
 	public FileViewPanel(){
 		setSize(600,460);
@@ -281,8 +284,6 @@ public class FileViewPanel extends JPanel{
 			root.removeAllChildren();
 			if (host!=null) {
 				
-				ExploitService service=null;
-				
 				switch (version) {
 				case S2009:
 					service=new Struts2_S09_ExploitServiceImpl();
@@ -290,8 +291,11 @@ public class FileViewPanel extends JPanel{
 				case S2016:
 					service=new Struts2_S016_ExploitServiceImpl();
 					break;
-				default:
+				case S2019:
 					service=new Struts2_S019_ExploitServiceImpl();
+					break;
+				default:
+					service=new Struts2_S032_ExploitServiceImpl();
 					break;
 				}
 				
@@ -310,6 +314,7 @@ public class FileViewPanel extends JPanel{
 			}else {
 				JOptionPane.showMessageDialog(this, "请输入URL");
 			}
+			
 		} catch (Exception exp) {
 			exp.printStackTrace();
 			JOptionPane.showMessageDialog(this, "对不起,无法获取文件系统");
@@ -320,30 +325,7 @@ public class FileViewPanel extends JPanel{
 	private List<String> getFiles(String path){
 		
 		try {
-			if (host!=null) {
-				
-				ExploitService service=null;
-				
-				switch (version) {
-				case S2009:
-					service=new Struts2_S09_ExploitServiceImpl();
-					break;
-				case S2016:
-					service=new Struts2_S016_ExploitServiceImpl();
-					break;
-				default:
-					service=new Struts2_S019_ExploitServiceImpl();
-					break;
-				}
-				
-				List<String>fileList=service.doListFiles(host, path);
-				
-				return fileList;
-				
-			}else {
-				JOptionPane.showMessageDialog(this, "请输入URL");
-				return null;
-			}
+			return service.doListFiles(host, path);
 		} catch (Exception exp) {
 			exp.printStackTrace();
 			JOptionPane.showMessageDialog(this, "对不起,无法获取文件系统");
@@ -351,33 +333,9 @@ public class FileViewPanel extends JPanel{
 		}
 	}
 	
-	
-	
 	private boolean isDirectory(String path){
 		try {
-			if (host!=null) {
-				
-				ExploitService service=null;
-				
-				switch (version) {
-				case S2009:
-					service=new Struts2_S09_ExploitServiceImpl();
-					break;
-				case S2016:
-					service=new Struts2_S016_ExploitServiceImpl();
-					break;
-				default:
-					service=new Struts2_S019_ExploitServiceImpl();
-					break;
-				}
-				
-				boolean flag=service.doIsDirectory(host, path);
-
-				return flag;
-			}else {
-				JOptionPane.showMessageDialog(this, "请输入URL");
-				return false;
-			}
+			return service.doIsDirectory(host, path);
 		} catch (Exception exp) {
 			exp.printStackTrace();
 			JOptionPane.showMessageDialog(this, "对不起,无法获取文件系统");
@@ -387,29 +345,7 @@ public class FileViewPanel extends JPanel{
 	
 	private String getFileContent(String path){
 		try {
-			if (host!=null) {
-				
-				ExploitService service=null;
-				
-				switch (version) {
-				case S2009:
-					service=new Struts2_S09_ExploitServiceImpl();
-					break;
-				case S2016:
-					service=new Struts2_S016_ExploitServiceImpl();
-					break;
-				default:
-					service=new Struts2_S019_ExploitServiceImpl();
-					break;
-				}
-				
-				return  service.doGetFileContent(host, path);
-				
-			}else {
-				JOptionPane.showMessageDialog(this, "请输入URL");
-				return  ""; 
-				
-			}
+			return  service.doGetFileContent(host, path);
 		} catch (Exception exp) {
 			return exp.toString();
 		}
@@ -417,30 +353,9 @@ public class FileViewPanel extends JPanel{
 	
 	private InputStream getInputStream(String path){
 		try {
-			if (host!=null) {
-				
-				ExploitService service=null;
-				
-				switch (version) {
-				case S2009:
-					service=new Struts2_S09_ExploitServiceImpl();
-					break;
-				case S2016:
-					service=new Struts2_S016_ExploitServiceImpl();
-					break;
-				default:
-					service=new Struts2_S019_ExploitServiceImpl();
-					break;
-				}
-				
-				return  service.doDownload(host, path);
-				
-			}else {
-				JOptionPane.showMessageDialog(this, "请输入URL");
-				return  null; 
-				
-			}
+			return  service.doDownload(host, path);
 		} catch (Exception exp) {
+			exp.printStackTrace();
 			return null;
 		}
 	}

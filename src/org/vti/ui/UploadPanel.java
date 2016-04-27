@@ -18,6 +18,7 @@ import org.vti.enumeration.Version;
 import org.vti.service.ExploitService;
 import org.vti.service.impl.Struts2_S016_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S019_ExploitServiceImpl;
+import org.vti.service.impl.Struts2_S032_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S09_ExploitServiceImpl;
 import org.vti.util.SystemUitls;
 
@@ -108,8 +109,11 @@ public class UploadPanel extends JPanel implements ActionListener{
 				case S2016:
 					service=new Struts2_S016_ExploitServiceImpl();
 					break;
-				default:
+				case S2019:
 					service=new Struts2_S019_ExploitServiceImpl();
+					break;
+				default:
+					service=new Struts2_S032_ExploitServiceImpl();
 					break;
 				}
 				
