@@ -9,18 +9,18 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.JTree;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JSplitPane;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -30,6 +30,7 @@ import org.vti.service.ExploitService;
 import org.vti.service.impl.Struts2_S016_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S019_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S032_ExploitServiceImpl;
+import org.vti.service.impl.Struts2_S038_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S09_ExploitServiceImpl;
 
 public class FileViewPanel extends JPanel{
@@ -128,6 +129,8 @@ public class FileViewPanel extends JPanel{
 									fileContentJTextPane.setText(content);
 									fileContentJTextPane.setCaretPosition(0);
 									fileContentJTabbedPane.addTab(fileName,fileContentJTextPane);
+									fileContentJTabbedPane.setSelectedComponent(fileContentJTextPane);
+									
 								}								
 								
 								
@@ -294,8 +297,11 @@ public class FileViewPanel extends JPanel{
 				case S2019:
 					service=new Struts2_S019_ExploitServiceImpl();
 					break;
-				default:
+				case S2032:
 					service=new Struts2_S032_ExploitServiceImpl();
+					break;
+				default:
+					service=new Struts2_S038_ExploitServiceImpl();
 					break;
 				}
 				
@@ -347,6 +353,8 @@ public class FileViewPanel extends JPanel{
 		try {
 			return  service.doGetFileContent(host, path);
 		} catch (Exception exp) {
+			exp.printStackTrace();
+			JOptionPane.showMessageDialog(this, "对不起,无法获取文件内容");
 			return exp.toString();
 		}
 	}
@@ -356,6 +364,7 @@ public class FileViewPanel extends JPanel{
 			return  service.doDownload(host, path);
 		} catch (Exception exp) {
 			exp.printStackTrace();
+			JOptionPane.showMessageDialog(this, "对不起,无法获取文件内容");
 			return null;
 		}
 	}

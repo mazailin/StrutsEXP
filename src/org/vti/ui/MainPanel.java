@@ -31,7 +31,7 @@ public class MainPanel extends JFrame{
 		
 		JLabel urlJLabel = new JLabel("URL");
 
-		urlJTextField = new JTextField("http://localhost/struts/login.action");
+		urlJTextField = new JTextField("http://localhost:8080/struts/login.action");
 		urlJTextField.setColumns(10);
 		
 		versionJcomboBox = new JComboBox<String>();
@@ -67,6 +67,11 @@ public class MainPanel extends JFrame{
 			public void focusLost(FocusEvent e) {
 				super.focusLost(e);
 				
+				if (!urlJTextField.getText().trim().startsWith("https://")&&
+						!urlJTextField.getText().trim().startsWith("http://")) {
+					urlJTextField.setText("http://"+urlJTextField.getText().trim());
+				}
+				
 				serverPanel.setReqestUrl(urlJTextField.getText().trim());
 				serverPanel.setVersion(Version.valueOf(versionJcomboBox.getSelectedItem().toString()));
 				
@@ -90,6 +95,11 @@ public class MainPanel extends JFrame{
 			public void focusLost(FocusEvent e) {
 				super.focusLost(e);
 				
+				if (!urlJTextField.getText().trim().startsWith("https://")&&
+						!urlJTextField.getText().trim().startsWith("http://")) {
+					urlJTextField.setText("http://"+urlJTextField.getText().trim());
+				}
+				
 				serverPanel.setReqestUrl(urlJTextField.getText().trim());
 				serverPanel.setVersion(Version.valueOf(versionJcomboBox.getSelectedItem().toString()));
 				
@@ -112,6 +122,10 @@ public class MainPanel extends JFrame{
 			public void focusLost(FocusEvent e) {
 				super.focusLost(e);
 				
+				if (!urlJTextField.getText().trim().startsWith("https://")&&
+						!urlJTextField.getText().trim().startsWith("http://")) {
+					urlJTextField.setText("http://"+urlJTextField.getText().trim());
+				}
 				
 				serverPanel.setReqestUrl(urlJTextField.getText().trim());
 				serverPanel.setVersion(Version.valueOf(versionJcomboBox.getSelectedItem().toString()));

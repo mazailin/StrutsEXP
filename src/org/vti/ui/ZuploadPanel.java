@@ -3,15 +3,15 @@ package org.vti.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.vti.enumeration.Version;
@@ -19,6 +19,7 @@ import org.vti.service.ExploitService;
 import org.vti.service.impl.Struts2_S016_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S019_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S032_ExploitServiceImpl;
+import org.vti.service.impl.Struts2_S038_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S09_ExploitServiceImpl;
 
 public class ZuploadPanel extends JPanel implements ActionListener{
@@ -112,8 +113,11 @@ public class ZuploadPanel extends JPanel implements ActionListener{
 				case S2019:
 					service=new Struts2_S019_ExploitServiceImpl();
 					break;
-				default:
+				case S2032:
 					service=new Struts2_S032_ExploitServiceImpl();
+					break;
+				default:
+					service=new Struts2_S038_ExploitServiceImpl();
 					break;
 				}
 				

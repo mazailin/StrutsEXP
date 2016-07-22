@@ -21,6 +21,7 @@ import org.vti.service.ExploitService;
 import org.vti.service.impl.Struts2_S016_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S019_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S032_ExploitServiceImpl;
+import org.vti.service.impl.Struts2_S038_ExploitServiceImpl;
 import org.vti.service.impl.Struts2_S09_ExploitServiceImpl;
 
 public class CmdPanel extends JPanel implements ActionListener{
@@ -117,8 +118,9 @@ public class CmdPanel extends JPanel implements ActionListener{
 			textPane.setText("");
 			String command=cmdJTextField.getText().trim();
 			if (host!=null&&command.length()>0) {
+
 				textPane.setText("请稍候...");
-				
+
 				ExploitService service=null;
 				
 				switch (version) {
@@ -131,8 +133,11 @@ public class CmdPanel extends JPanel implements ActionListener{
 				case S2019:
 					service=new Struts2_S019_ExploitServiceImpl();
 					break;
-				default:
+				case S2032:
 					service=new Struts2_S032_ExploitServiceImpl();
+					break;
+				default:
+					service=new Struts2_S038_ExploitServiceImpl();
 					break;
 				}
 				

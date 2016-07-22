@@ -115,7 +115,7 @@ public class RequestUtil {
 					return true;
 				}
 			});
-			connection.setRequestMethod("GET");
+			connection.setRequestMethod("POST");
 			connection.setConnectTimeout(10000);
 			connection.connect();
 			inputStream=connection.getInputStream();
